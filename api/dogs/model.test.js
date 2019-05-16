@@ -8,9 +8,10 @@ describe('dogs model', () => {
 
   describe('post()', () => {
     it('should post provided dog to DB', async () => {
-      const expected = { name: 'Duffer' }
+      const expected = { name: 'Fido' }
       const [id] = await Dogs.post(expected);
       const actual = await Dogs.get(id);
       expect(actual.name).toBe(expected.name);
-    });
+    })
+  })
 })
