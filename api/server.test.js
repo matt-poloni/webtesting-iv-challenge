@@ -33,14 +33,18 @@ describe('/dogs route', () => {
     })
 
     it('should return the id of the new dog', async () => {
-      const expected = { name: 'Duffer' };
-      const [id] = await request(server)
+      const dog = { name: 'Duffer' };
+      return request(server)
         .post('/api/dogs')
-        .send(expected);
-      const actual = await request(server)
-        .get('/api/dogs')
-        .send({id});
-      expect(actual.name).toBe(expected.name);
+        .send(dog)
+        .expect([1]);
+      // const [id] = await request(server)
+      //   .post('/api/dogs')
+      //   .send(expected);
+      // const actual = await request(server)
+      //   .get('/api/dogs')
+      //   .send({id});
+      // expect(actual.name).toBe(expected.name);
     })
   })
 })
