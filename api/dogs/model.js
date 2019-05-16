@@ -6,9 +6,9 @@ module.exports = {
   post,
 }
 
-function get(id) {
-  return id
-    ? db(tbl).where({id}).first()
+function get(val) {
+  return val
+    ? db(tbl).where(val).first()
     : db(tbl);
 }
 
