@@ -34,4 +34,14 @@ server.post('/api/dogs', (req, res) => {
     })
 })
 
+server.delete('/api/dogs', (req, res) => {
+  db.post(req.body)
+    .then(created => {
+      res.status(201).json(created);
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Couldn't create new dog database" })
+    })
+})
+
 module.exports = server;

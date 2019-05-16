@@ -14,4 +14,12 @@ describe('dogs model', () => {
       expect(actual.name).toBe(expected.name);
     })
   })
+
+  describe('del()', () => {
+    it('should delete the dog w/ provided ID from DB', async () => {
+      const dog = { name: 'Duffer' }
+      const num = await Dogs.post(dog);
+      expect(num).toEqual([1]);
+    })
+  })
 }) 

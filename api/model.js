@@ -4,6 +4,7 @@ const tbl = 'dogs';
 module.exports = {
   get,
   post,
+  del,
 }
 
 function get(val) {
@@ -14,4 +15,8 @@ function get(val) {
 
 function post(entry) {
   return db(tbl).insert(entry);
+}
+
+function del(id) {
+  return db(tbl).where({id}).del();
 }
