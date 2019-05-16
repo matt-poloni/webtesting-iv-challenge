@@ -1,4 +1,4 @@
-const db = require('../../data/dbConfig');
+const db = require('../data/dbConfig');
 const Dogs = require('./model');
 
 describe('dogs model', () => {
@@ -14,4 +14,4 @@ describe('dogs model', () => {
       expect(actual.name).toBe(expected.name);
     })
   })
-})
+}) 
