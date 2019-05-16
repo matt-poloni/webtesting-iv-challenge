@@ -6,7 +6,11 @@ describe('dogs model', () => {
     await db('dogs').truncate();
   });
 
-  it('should run tests', () => {
-    expect(true).toBe(true);
-  })
+  describe('post()', () => {
+    it('should post provided dog to DB', async () => {
+      const expected = { name: 'Duffer' }
+      const [id] = await Dogs.post(expected);
+      const actual = await Dogs.get(id);
+      expect(actual.name).toBe(expected.name);
+    });
 })
