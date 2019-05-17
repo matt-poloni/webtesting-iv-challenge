@@ -52,7 +52,7 @@ server.delete('/api/dogs/:id', (req, res) => {
     .then(count => {
       !count
         ? res.status(404).json({ error: 'Specified dog not found.' })
-        : res.status(204).end();
+        : res.status(200).json(count);
     })
     .catch(err => {
       res.status(500).json({ error: "Couldn't create new dog database" })

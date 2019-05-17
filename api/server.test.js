@@ -16,9 +16,7 @@ describe('server', () => {
         .expect(200);
     })
   })
-})
 
-describe('/dogs route', () => {
   afterEach(async () => {
     await db('dogs').truncate();
   });
@@ -56,7 +54,7 @@ describe('/dogs route', () => {
   })
 
   describe('DELETE', () => {
-    it('should return w/ status 204', async () => {
+    it('should return w/ status 200', async () => {
       const dog = { name: 'Duffer' };
       const res = await request(server)
         .post('/api/dogs')
@@ -64,7 +62,20 @@ describe('/dogs route', () => {
       const id = res.body[0];
       return request(server)
         .del(`/api/dogs/${id}`)
-        .expect(204);
+        .expect(200);
+    })
+
+    it('should return the count of deleted items as 1', async () => {
+      const dog = { name: 'Duffer' };
+      const res = await request(server)
+        .post('/api/dogs')
+        .send(dog)
+      const id = res.body[0];
+      return request(server)
+        .del(`/api/dogs/${id}`)
+        .then(res => {
+          expect(res.body).toEqual(1);
+        })
     })
   })
 })
