@@ -23,7 +23,7 @@ describe('/dogs route', () => {
     await db('dogs').truncate();
   });
 
-  describe.skip('POST', () => {
+  describe('POST', () => {
     it('should return w/ status 201', () => {
       const dog = { name: 'Duffer' };
       return request(server)
@@ -32,19 +32,39 @@ describe('/dogs route', () => {
         .expect(201);
     })
 
-    it('should return the id of the new dog', async () => {
+    it('should return an id of 1', async () => {
       const dog = { name: 'Duffer' };
-      return request(server)
+      const res = await request(server)
         .post('/api/dogs')
         .send(dog)
-        .expect([1]);
-      // const [id] = await request(server)
-      //   .post('/api/dogs')
-      //   .send(expected);
-      // const actual = await request(server)
-      //   .get('/api/dogs')
-      //   .send({id});
-      // expect(actual.name).toBe(expected.name);
+      const id = res.body[0];
+      expect(id).toBe(1);
+    })
+
+    it('should return the id of the new dog', async () => {
+      const dog = { name: 'Duffer' };
+      const res = await request(server)
+        .post('/api/dogs')
+        .send(dog)
+      const id = res.body[0];
+      return request(server)
+        .get(`/api/dogs/${id}`)
+        .then(res => {
+          expect(res.body.name).toBe(dog.name);
+        })
+    })
+  })
+
+  describe('DELETE', () => {
+    it('should return w/ status 204', async () => {
+      const dog = { name: 'Duffer' };
+      const res = await request(server)
+        .post('/api/dogs')
+        .send(dog)
+      const id = res.body[0];
+      return request(server)
+        .del(`/api/dogs/${id}`)
+        .expect(204);
     })
   })
 })
